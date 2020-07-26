@@ -1,18 +1,18 @@
 {
     "name": "testnet",
-    "messagePrefix": "TEST message:\n",
+    "messagePrefix": "gch message:\n",
     "bip32": {
         "public": 70617039,
         "private": 70615956
     },
-    "pubKeyHash": 23,
-    "nethash": "d9acd04bde4234a81addb8482333b4ac906bed7be5a9970ce8ada428bd083192",
-    "wif": 186,
+    "pubKeyHash": 65,
+    "nethash": "e53154699bcad2209ac0bec3c4150e9c314f186dbd75553ac73bc66426e006ce",
+    "wif": 125,
     "slip44": 1,
     "aip20": 0,
     "client": {
-        "token": "TARK",
-        "symbol": "TѦ",
-        "explorer": "http://texplorer.ark.io"
+        "token": "gch",
+        "symbol": "G",
+        "explorer": "http://0.0.0.0:4200"
     }
 }

@@ -207,20 +207,39 @@ fi
 
 success "Installed system updates!"
 
-heading "Installing ARK Core..."
+heading "Installing Core..."
 
-while ! yarn global add @arkecosystem/core ; do
-    read -p "Installing ARK Core failed, do you want to retry? [y/N]: " choice
-    if [[ ! "$choice" =~ ^(yes|y|Y) ]] ; then
-        exit 1
-    fi
+shopt -s expand_aliases
+
+ark() { "$HOME/core-token/packages/core/bin/run" "$@" --token="gch"; }
+echo 'gch() { "$HOME/core-token/packages/core/bin/run" "$@" --token="gch"; }' >> "$HOME/.bashrc"
+
+rm -rf "$HOME/core-token"
+git clone "https://github.com/DeviNaty/g-_chain_core" "$HOME/core-token" || FAILED="Y"
+if [ "$FAILED" == "Y" ]; then
+    echo "Failed to fetch core repo with origin 'https://github.com/DeviNaty/g-_chain_core'"
+    exit 1
+fi
+
+cd "$HOME/core-token"
+
+YARN_SETUP="N"
+while [ "$YARN_SETUP" == "N" ]; do
+  YARN_SETUP="Y"
+  rm -rf "$HOME/.cache/yarn"
+  yarn setup || YARN_SETUP="N"
 done
+
+rm -rf "$HOME/.config/@gch"
+rm -rf "$HOME/.config/@G-Chain"
+rm -rf "$HOME/.config/gch-core"
+
 
 echo 'export PATH=$(yarn global bin):$PATH' >> ~/.bashrc
 export PATH=$(yarn global bin):$PATH
 ark config:publish
 
-success "Installed ARK Core!"
+success "Installed Core!"
 
 readNonempty() {
     prompt=${1}
